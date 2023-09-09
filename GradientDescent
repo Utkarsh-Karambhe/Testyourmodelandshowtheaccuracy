@@ -1,0 +1,36 @@
+import csv
+import matplotlib.pyplot as plt
+
+def predict(x, m, c):
+    return m*x+c
+
+def error(x, y, m, c):
+    D = len(x)
+    error = sum([(y[i]-(m*x[i]+c))**2 for i in range(D)])/D
+    return error
+
+def gradients(x, y, m, c):
+    D = len(x)
+    dm = (-2/N)*sum([x[i]*(y[i]-(m*x[i]+c)) for i in range(D)])
+    dc = (-2/N)*sum([y[i]-(m*x[i]+c) for i in range(D)])
+    return dm, dc
+
+with open('train.csv', 'r') as file:
+    reader = csv.reader(file)
+    next(reader) 
+    for row in reader:
+        x.append(float(row[0]))
+        y.append(float(row[1]))
+
+for i in range(num_iterations):
+    dm, dc = compute_gradients(x, y, m, c)
+    m -= learning_rate*dm
+    c -= learning_rate*dc
+
+plt.scatter(x, y, label='Data')
+plt.xlabel('x-axis')
+plt.ylabel('y-axis')
+plt.title('Gradient Descent Best Fitted Line')
+plt.show()
+
+
